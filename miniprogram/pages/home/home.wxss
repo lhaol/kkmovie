@@ -1,0 +1,68 @@
+/* miniprogram/pages/home/home.wxss */
+.home-container{
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+.movie-detail{
+  position: relative;
+  height: 100%;
+  padding-top:10%;
+  box-sizing: border-box;
+}
+.movie-item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.movie-bg{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500rpx;
+  height: 800rpx;
+  border-radius: 5px;
+  border:10px solid rgba(207,199,204,0.49);
+  box-shadow: 0px -1px 10px 5px rgba(187,178,178,0.75);
+  -webkit-box-shadow: 0px -1px 10px 5px rgba(187,178,178,0.75);
+  -moz-box-shadow: 0px -1px 10px 5px rgba(187,178,178,0.75);
+}
+.movie-img{
+  width: 450rpx;
+  height: 750rpx;
+}
+.movie-title, .movie-comment{
+  margin-top:25rpx;
+}
+.movie-comment{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.head-shot{
+  width: 65rpx;
+  height: 65rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}
+.comment-tip{
+  font-size: 35rpx;
+  color: #333333;
+}
+.skip-buttons{
+  position: fixed;
+  bottom: 0; 
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background: #F6F6F6;
+  color:#7F99AF
+}
+.skip-buttons .btn{
+  flex: 1;
+  text-align: center;
+  height: 100rpx;
+  line-height: 100rpx;
+}
