@@ -1,4 +1,7 @@
 // miniprogram/pages/hotMovie/hotMovie.js
+
+const db = require('../../utils/db')
+
 Page({
 
   /**
@@ -11,26 +14,29 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-      this.getMovieList()
-      wx.showLoading({
-        title: '',
-      })
+  onLoad: function(options) {
+    this.getMovieList()
   },
-  getMovieList(callback){
-    wx.cloud.callFunction({
-      name: 'movieList',
-      success: res => {
-        let movieList = JSON.parse(JSON.stringify(res.result.data));
+
+  getMovieList() {
+    wx.showLoading({
+      title: 'Loading.....',
+    })
+
+    db.getMovieList().then(result => {
+      wx.hideLoading()
+
+      const movieList = result.data 
+      // console.log(movieList)
+
+      if (movieList.length) {
         this.setData({
           movieList
         })
-        wx.hideLoading()
-      },
-      complete:res =>{
-        callback&&callback()
-        wx.hideLoading()
       }
+    }).catch(err => {
+      console.error(err)
+      wx.hideLoading()
     })
   },
   /**

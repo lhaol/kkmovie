@@ -1,6 +1,6 @@
 <!--miniprogram/pages/home/home.wxml-->
 <view class='home-container'>
-    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}" class='movie-detail'>
+    <swiper class='movie-detail'>
       <block wx:for="{{movieList}}">
         <swiper-item class="movie-item">
           <view class='movie-bg'>
