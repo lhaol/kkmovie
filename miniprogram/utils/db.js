@@ -6,9 +6,16 @@ module.exports = {
   getMovieList() {
     return db.collection('movies').get()
   },
-  getMovieDetail(movieId){
-    return db.collection('movies').where({ _id:movieId}).get()
+
+  getMovieById(id){
+    return wx.cloud.callFunction({
+      name: 'getMovieById',
+      data:{
+        id
+      }
+    })
   },
+
   addReview(data) {
     console.log(data)
     return util.isAuthenticated()

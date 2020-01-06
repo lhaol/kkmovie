@@ -1,4 +1,7 @@
 // miniprogram/pages/movieDetail/movieDetail.js
+
+const db = require('../../utils/db')
+
 Page({
 
   /**
@@ -42,25 +45,37 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: '',
-    })
-    this.getMovieById(options.movieId)
+    this.getMovieDetail(options.movieId)
+    console.log(options.movieId)
   },
   
   // 根据ID获取电影详情
-  getMovieById(id){
-    wx.cloud.callFunction({
-      name:'getMovieById',
-      data:{
-        id:id
-      }
-    }).then(res=>{
-      let movie = res.result.data[0]
-      this.setData({ 
-        movie
-      })
+  getMovieDetail(id){
+    wx.showLoading({
+      title: 'Loading...',
+    })
+
+    db.getMovieById(id).then(result => {
       wx.hideLoading()
-    }).catch(console.error)
+      const data = result.result
+      console.log(data)
+      if (data){
+        this.setData({
+          movie: data
+        })
+      } else {
+        setTimeout(() => {
+          wx.navigateBack()
+        }, 5000)
+      }
+    }).catch(err => {
+      console.error(err)
+      wx.hideLoading()
+      
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 5000)
+    })
+
   }
 })

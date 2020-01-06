@@ -13,9 +13,10 @@
 	},
 	"appid": "wx113dd30b2c912508",
 	"projectname": "movies",
-	"libVersion": "2.2.5",
+	"libVersion": "2.10.0",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
 	"condition": {
 		"search": {
 			"current": -1,

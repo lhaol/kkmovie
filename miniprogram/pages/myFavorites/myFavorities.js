@@ -1,7 +1,5 @@
 // miniprogram/pages/myFavorites/myFavorities.js
-const db = wx.cloud.database({
-  env: 'movies-tijov'
-});
+const db = require('../../utils/db')
 
 Page({
 

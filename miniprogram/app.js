@@ -6,6 +6,7 @@ App({
     } else {
       wx.cloud.init({
         traceUser: true,
+        env: 'movies-tijov'
       })
     }
 
