@@ -51,11 +51,12 @@ Page({
    */
   onLoad: function(options) {
     this.getMyCollection()
-    wx.showLoading({
-      title: '',
-    })
   },
   getMyCollection(callback) { // 查收藏
+    wx.showLoading({
+      title: 'loading',
+    })
+    
     wx.cloud.callFunction({
       name: 'myFavorites'
     }).then(res => {
@@ -66,25 +67,23 @@ Page({
       callback && callback()
     })
   },
+
   getMyRelease(callback) { // 查发布
-    let currentUser = wx.getStorageSync('currentUser')
-    db.collection('movieComments').where({
-      name: currentUser.name
-    }).get({
-      success: res => {
-        this.setData({
-          movieList: res.data
-        })
-        wx.hideLoading()
-      },
-      fail: err => {
-        console.error(err)
-        wx.hideLoading()
-      },
-      complete: () => {
-        callback && callback()
-      }
+    wx.showLoading({
+      title: 'loading',
     })
+    
+    let currentUser = wx.getStorageSync('currentUser')
+
+    wx.cloud.callFunction({
+      name:'movieComments'
+    }).then(res => {
+      this.setData({
+        movieList: res.result.data
+    })
+    wx.hideLoading()
+    callback && callback()
+  })
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作

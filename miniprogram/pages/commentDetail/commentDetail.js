@@ -1,7 +1,5 @@
 // miniprogram/pages/commentDetail/commentDetail.js
-const db = wx.cloud.database({
-  env: 'movies-tijov'
-});
+const db = wx.cloud.database();
 let timer = null;
 const innerAudioContext = wx.createInnerAudioContext();
 Page({
@@ -75,7 +73,7 @@ Page({
       this.setData({
         addToFavorite: true
       })
-      db.collection('myFavorite').add({
+      db.collection('favorites').add({
         data: {
           content: this.data.comment.content,
           headshort: this.data.comment.headshort,

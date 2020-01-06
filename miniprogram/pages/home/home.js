@@ -8,17 +8,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // recommendMovie: {}, // 推荐电影
-    // recommendList: [], // 推荐电影列表
-    // movieTitle: '',
-    // movieImg: '',
-    // headshort: '',
-    // name: '',
-    // indicatorDots: false,
-    // autoplay: true,
-    // interval: 5000,
-    // duration: 1000,
-    // circular: true
     movieList:[],
   },
 

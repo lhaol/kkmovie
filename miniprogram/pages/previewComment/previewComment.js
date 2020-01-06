@@ -1,7 +1,5 @@
 // miniprogram/pages/previewComment/previewComment.js
-const db = wx.cloud.database({
-  env: 'movies-tijov'
-});
+const db = wx.cloud.database();
 let timer = null;
 const innerAudioContext = wx.createInnerAudioContext();
 Page({
