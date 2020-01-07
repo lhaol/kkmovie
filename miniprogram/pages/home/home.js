@@ -23,20 +23,25 @@ Page({
       url: '../myFavorites/myFavorities',
     })
   },
-  // 跳转影评详情
-  skipToComment() {
-    let commentId = this.data.recommendMovie._id
-    wx.navigateTo({
-      url: '../commentDetail/commentDetail?commentId=' + commentId,
-    })
-  },
-  //跳转电影详情
+
+  // // 跳转影评详情
+  // skipToComment() {
+  //   let commentId = this.data.recommendMovie._id
+  //   wx.navigateTo({
+  //     url: '../commentDetail/commentDetail?commentId=' + commentId,
+  //   })
+  // },
+
+
+  //跳转推荐电影详情
   skipToDetail() {
-    let movieId = this.data.recommendMovie.movieId
+    let movieId = this.data.movieList[0]._id
+    // console.log(movieId)
     wx.navigateTo({
       url: '../movieDetail/movieDetail?movieId=' + movieId,
     })
   },
+  
   /**
    * 生命周期函数--监听页面加载
    */

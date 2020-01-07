@@ -37,16 +37,18 @@ Page({
   },
   // 跳转影评列表页
   skipToComment(){
+    let title = this.data.movie.title
+    // console.log(title)
     wx.navigateTo({
-      url: '../commentList/commentList',
+      url: '../commentList/commentList?title=' + title,
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getMovieDetail(options.movieId)
-    console.log(options.movieId)
+    this.getMovieDetail(options)
+    // console.log(options)
   },
   
   // 根据ID获取电影详情
@@ -58,7 +60,7 @@ Page({
     db.getMovieById(id).then(result => {
       wx.hideLoading()
       const data = result.result
-      console.log(data)
+      // console.log(data)
       if (data){
         this.setData({
           movie: data

@@ -49,20 +49,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getCommentList()
-    wx.showLoading({
-      title: '',
-    })
+    this.getCommentList(options)
+    // console.log(options)
   },
-  getCommentList(callback) {
+
+  getCommentList(title) {
+    wx.showLoading({
+      title: 'Loading...',
+    })
     wx.cloud.callFunction({
-      name: 'movieComments'
-    }).then(res => {
-      wx.hideLoading()
-      this.setData({
-        commentlist: res.result.data
-      })
-      callback && callback()
+      name: 'movieComments',
+      data:{
+        title
+      }
     })
   },
   /**
