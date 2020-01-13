@@ -11,14 +11,10 @@ const db = cloud.database()
 // 云函数入口函数
 exports.main = async (event, context) => {
   // return db.collection('comments').get()
-  const title = event.title.title
+  const movieId = event.movieId.movieId
   const commentRes = await db.collection('comments').where({
-    title: title
+    movieId:movieId
   }).get()
-  const comment = commentRes.data
-  console.log(comment)
-  return comment
+  return commentRes
 
-  // return event.title
-  // return title
 }

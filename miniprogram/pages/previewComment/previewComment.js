@@ -52,7 +52,7 @@ Page({
     wx.navigateBack()
   },
   saveToComment() {
-    db.collection('movieComments').add({
+    db.collection('comments').add({
       data: {
         name: this.data.name,
         title: this.data.title,
@@ -60,7 +60,7 @@ Page({
         content: this.data.content,
         image: this.data.image,
         voice: this.data.voice,
-        voiceTime: this.data.radioTimer,
+        radioTimer: this.data.radioTimer,
         movieId: this.data.movieId
       },
       success: (res) => {
@@ -81,6 +81,7 @@ Page({
         isText: true,
         content: options.content
       })
+      // console.log(this.data.content)
     } else {
       this.setData({
         isText: false,

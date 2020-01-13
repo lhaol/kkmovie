@@ -30,6 +30,7 @@ Page({
       title: this.data.movie.title,
       movieId: this.data.movie._id
     }
+    // console.log(movieDetail)
     wx.setStorageSync('movieDetail', movieDetail)
     wx.navigateTo({
       url: '../editComment/editComment?selectType=' + selectType
@@ -37,10 +38,10 @@ Page({
   },
   // 跳转影评列表页
   skipToComment(){
-    let title = this.data.movie.title
-    // console.log(title)
+    let movieId = this.data.movie._id
+    console.log(movieId)
     wx.navigateTo({
-      url: '../commentList/commentList?title=' + title,
+      url: '../commentList/commentList?movieId=' + movieId,
     })
   },
   /**

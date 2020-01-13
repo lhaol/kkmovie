@@ -23,7 +23,7 @@ Page({
       })
       this.getMyCollection()
       wx.showLoading({
-        title: 'Loading...',
+        title: 'Loading My Collection...',
       })
     } else if (selectNum == 1) { 
       this.setData({
@@ -31,7 +31,7 @@ Page({
       })
       this.getMyRelease()
       wx.showLoading({
-        title: '',
+        title: 'Loading My Release...',
       })
     }
   },

@@ -1,7 +1,10 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 
-cloud.init()
+cloud.init({
+  traceUser: true,
+  env: 'movies-tijov'
+})
 
 const db = cloud.database()
 

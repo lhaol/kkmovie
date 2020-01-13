@@ -1,4 +1,7 @@
 // miniprogram/pages/commentList/commentList.js
+
+const db = require('../../utils/db')
+
 let timer = null;
 const innerAudioContext = wx.createInnerAudioContext();
 Page({
@@ -49,20 +52,44 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getCommentList(options)
     // console.log(options)
+    this.getCommentList(options)
+    
   },
 
-  getCommentList(title) {
+  getCommentList(movieId) {
     wx.showLoading({
       title: 'Loading...',
     })
+    // console.log(movieId.movieId)
     wx.cloud.callFunction({
       name: 'movieComments',
       data:{
-        title
+        movieId: movieId
       }
+    }).then(result => {
+      wx.hideLoading()  
+      // console.log(result)
+      const commentList = result.result.data
+      console.log(commentList)
+      if (commentList.length) {
+        this.setData({
+          commentList
+        })
+      } else {
+        setTimeout(() => {
+          wx.navigateBack()
+        }, 5000)
+      }
+    }).catch(err => {
+      console.error(err)
+      wx.hideLoading()
+
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 5000)
     })
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
