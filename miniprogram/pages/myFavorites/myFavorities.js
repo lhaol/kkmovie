@@ -9,7 +9,8 @@ Page({
   data: {
     movieList: [],
     selectNum: '0', // tab选中值
-    userInfo: null
+    userInfo: null,
+    commentList: []
   },
   // tab切换
   selectTab(e) {
@@ -70,20 +71,24 @@ Page({
 
   getMyRelease(callback) { // 查发布
     wx.showLoading({
-      title: 'loading',
+      title: 'loading My Release...',
     })
     
     let currentUser = wx.getStorageSync('currentUser')
 
     wx.cloud.callFunction({
-      name:'movieComments'
+      name:'myComments',
+      data:{
+        name: currentUser
+      }
     }).then(res => {
       this.setData({
-        movieList: res.result.data
+        commentList: res.result.data
     })
     wx.hideLoading()
     callback && callback()
-  })
+    })
+
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
