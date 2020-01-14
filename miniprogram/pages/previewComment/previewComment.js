@@ -60,7 +60,7 @@ Page({
         content: this.data.content,
         image: this.data.image,
         voice: this.data.voice,
-        voiceTime: this.data.radioTimer,
+        radioTimer: this.data.radioTimer,
         movieId: this.data.movieId
       },
       success: (res) => {
@@ -69,7 +69,7 @@ Page({
       fail: console.error
     })
     wx.navigateTo({
-      url: '../commentList/commentList',
+      url: '../commentList/commentList?movieId=' + this.data.movieId
     })
   },
   /**

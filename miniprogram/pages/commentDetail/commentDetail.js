@@ -82,7 +82,7 @@ Page({
           name: this.data.comment.name
         },
         success: (res) => {
-          console.log(res)
+          // console.log(res)
         },
         fail: console.error
       })
