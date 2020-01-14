@@ -10,16 +10,22 @@ const db = cloud.database()
 
 // 云函数入口函数
 exports.main = async (event, context) => {
+  const count = db.collection('comments').where({
+    _id: event.id
+  }).count
+
   const commentRes = db.collection('comments').where({
-          _id: event.id
-        }).get()
+    _id: event.id
+  }).get()
+
   const favRes = db.collection('favorites').where({
-          _id: event.id
-        }).get()
-  if (commentRes){
-    return commentRes
+    _id: event.id
+  }).get()
+  
+  if (count){
+    return commentRes  
   } else {
     return favRes
   }
-
+  
 }
