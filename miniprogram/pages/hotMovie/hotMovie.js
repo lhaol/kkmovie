@@ -27,7 +27,7 @@ Page({
       wx.hideLoading()
 
       const movieList = result.data 
-      console.log(movieList)
+      // console.log(movieList)
 
       if (movieList.length) {
         this.setData({

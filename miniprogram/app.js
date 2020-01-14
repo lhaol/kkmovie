@@ -20,7 +20,7 @@ App({
             success: (res) => {
               wx.login({
                 success: (res) => {
-                  console.log(res)
+                  // console.log(res)
                 }
               })
             }
