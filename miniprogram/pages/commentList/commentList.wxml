@@ -11,7 +11,7 @@
           <view class='item-content' wx:if="{{item.content!=''}}">{{item.content}}</view>
           <view class='record-Radio' catchtap='startPlay' wx:else>
             <view class='radio-content' data-item='{{item}}'>
-              <view class='radio-time'>{{item.voiceTime}}s</view>
+              <view class='radio-time'>{{item.radioTimer}}s</view>
               <view class='radio-play' wx:if='{{startPlay}}'>
               </view>
             </view>

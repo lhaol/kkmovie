@@ -27,5 +27,5 @@ exports.main = async (event, context) => {
   } else {
     return favRes
   }
-  
+
 }

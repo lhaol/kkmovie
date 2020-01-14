@@ -18,7 +18,7 @@ Page({
       startPlay: true,
     })
     clearInterval(timer)
-    let n = parseInt(e.target.dataset.item.voiceTime)
+    let n = parseInt(e.target.dataset.item.radioTimer)
     timer = setInterval(function () {
       n--
       let s = parseInt(n % 60)

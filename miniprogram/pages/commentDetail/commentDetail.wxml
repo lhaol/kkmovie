@@ -15,7 +15,7 @@
         </view>
         <view class='record-Radio' bindtap='startPlay' wx:else>
           <view class='radio-content'>
-            <view class='radio-time'>{{comment.voiceTime}}s</view>
+            <view class='radio-time'>{{comment.radioTimer}}s</view>
             <view class='radio-play' wx:if='{{startPlay}}'>
             </view>
           </view>

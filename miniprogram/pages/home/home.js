@@ -20,7 +20,7 @@ Page({
   // 跳转我的电影
   skipToMy() {
     wx.navigateTo({
-      url: '../myFavorites/myFavorities',
+      url: '../myFavorites/myFavorites',
     })
   },
 

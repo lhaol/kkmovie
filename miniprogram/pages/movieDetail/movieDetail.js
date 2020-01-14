@@ -38,9 +38,7 @@ Page({
   },
   // 跳转影评列表页
   skipToComment(){
-    // let movieId = this.data.movie._id
     let movieId = this.data.movie._id
-    console.log(movieId)
     wx.navigateTo({
       url: '../commentList/commentList?movieId=' + movieId,
     })
@@ -50,7 +48,6 @@ Page({
    */
   onLoad: function (options) {
     this.getMovieDetail(options)
-    // console.log(options)
   },
   
   // 根据ID获取电影详情
@@ -62,7 +59,6 @@ Page({
     db.getMovieById(id).then(result => {
       wx.hideLoading()
       const data = result.result
-      // console.log(data)
       if (data){
         this.setData({
           movie: data

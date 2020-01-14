@@ -21,7 +21,7 @@ Page({
       startPlay: true,
     })
     clearInterval(timer)
-    let n = parseInt(that.data.comment.voiceTime)
+    let n = parseInt(that.data.comment.radioTimer)
     timer = setInterval(function () {
       n--
       let s = parseInt(n % 60)
