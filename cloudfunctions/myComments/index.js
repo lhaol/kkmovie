@@ -1,14 +1,17 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 
-cloud.init()
+cloud.init({
+  traceUser: true,
+  env: 'movies-tijov'
+})
+
+const db = cloud.database()
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  // const wxContext = cloud.getWXContext()
-  const name = event.name
-  const res = await db.collection('comments').where({
-    name:name
+  return db.collection('comments').where({
+    name: event.name.name
   }).get()
-  return res
+  // return event
 }

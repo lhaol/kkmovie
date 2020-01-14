@@ -11,7 +11,7 @@ Page({
     comment: {},
     actionSheetHidden: true,
     actionSheetItems: ['文字', '音频'],
-    favExist: false,
+    addToFavorite: false,
     startPlay:false,
     voice:''
   },
@@ -69,9 +69,9 @@ Page({
   },
   // 收藏影评
   favThisComment(){
-    if(!this.data.favExist){ // 未收藏
+    if(!this.data.addToFavorite){ // 未收藏
       this.setData({
-        favExist: true
+        addToFavorite: true
       })
       db.collection('favorites').add({
         data: {
@@ -91,14 +91,13 @@ Page({
       url: '../myFavorites/myFavorities',
     })
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.getComment(options.commentId)
     wx.showLoading({
-      title: '',
+      title: 'Loading comment detail...',
     })
   },
   getComment(id){

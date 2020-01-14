@@ -38,6 +38,7 @@ Page({
   },
   // 跳转影评列表页
   skipToComment(){
+    // let movieId = this.data.movie._id
     let movieId = this.data.movie._id
     console.log(movieId)
     wx.navigateTo({

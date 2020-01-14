@@ -60,7 +60,7 @@ Page({
         content: this.data.content,
         image: this.data.image,
         voice: this.data.voice,
-        radioTimer: this.data.radioTimer,
+        voiceTime: this.data.radioTimer,
         movieId: this.data.movieId
       },
       success: (res) => {
@@ -81,7 +81,6 @@ Page({
         isText: true,
         content: options.content
       })
-      // console.log(this.data.content)
     } else {
       this.setData({
         isText: false,

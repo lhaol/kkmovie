@@ -7,10 +7,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    movieList: [],
+    commentList: [],
     selectNum: '0', // tab选中值
-    userInfo: null,
-    commentList: []
+    userInfo: null
   },
   // tab切换
   selectTab(e) {
@@ -20,19 +19,19 @@ Page({
     })
     if (selectNum == 0) { // 已收藏
       this.setData({
-        movieList: []
+        commentList: []
       })
       this.getMyCollection()
       wx.showLoading({
-        title: 'Loading My Collection...',
+        title: 'Loading...',
       })
     } else if (selectNum == 1) { 
       this.setData({
-        movieList: []
+        commentList: []
       })
       this.getMyRelease()
       wx.showLoading({
-        title: 'Loading My Release...',
+        title: '',
       })
     }
   },
@@ -58,12 +57,18 @@ Page({
       title: 'loading',
     })
     
+    let currentUser = wx.getStorageSync('currentUser')
+
     wx.cloud.callFunction({
-      name: 'myFavorites'
+      name: 'myFavorites',
+      data: {
+        name: currentUser
+      }
     }).then(res => {
       this.setData({
-        movieList: res.result.data
+        commentList: res.result.data
       })
+      // console.log(res)
       wx.hideLoading()
       callback && callback()
     })
@@ -71,7 +76,7 @@ Page({
 
   getMyRelease(callback) { // 查发布
     wx.showLoading({
-      title: 'loading My Release...',
+      title: 'loading',
     })
     
     let currentUser = wx.getStorageSync('currentUser')
@@ -85,10 +90,10 @@ Page({
       this.setData({
         commentList: res.result.data
     })
+    console.log(res)
     wx.hideLoading()
     callback && callback()
-    })
-
+  })
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作

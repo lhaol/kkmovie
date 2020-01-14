@@ -43,4 +43,10 @@ module.exports = {
       })
   },
 
+  // getCommentList(movieId){
+  //   const commentRes = db.collection('comments').where({ id: movieId }).get()
+  //   console.log(commentRes)
+  //   const comment = commentRes.data
+  //   return comment
+  // },
 }
