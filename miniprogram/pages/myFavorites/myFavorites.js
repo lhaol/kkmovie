@@ -46,12 +46,14 @@ Page({
     this.setData({
       userInfo: event.detail.userInfo
     })
+    console.log(userInfo)
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    this.getMyCollection()
+  onLoad: function() {
+    // this.getMyCollection()
   },
 
   onShow: function() {
@@ -59,6 +61,11 @@ Page({
       this.setData({
         userInfo
       })
+
+      this.getMyCollection()
+
+    }).catch(err => {
+      console.log('Not Authenticated yet');
     })
   },
 
@@ -67,12 +74,12 @@ Page({
       title: 'loading',
     })
     
-    let currentUser = wx.getStorageSync('currentUser')
+    // let currentUser = wx.getStorageSync('currentUser')
 
     wx.cloud.callFunction({
       name: 'myFavorites',
       data: {
-        name: currentUser
+        name: this.data.userInfo.nickName
       }
     }).then(res => {
       this.setData({
@@ -89,12 +96,12 @@ Page({
       title: 'loading',
     })
     
-    let currentUser = wx.getStorageSync('currentUser')
+    // let currentUser = wx.getStorageSync('currentUser')
 
     wx.cloud.callFunction({
       name:'myComments',
       data:{
-        name: currentUser
+        name: this.data.userInfo.nickName
       }
     }).then(res => {
       this.setData({

@@ -1,5 +1,7 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "login": "/components/login/login"
+  },
   "navigationBarTitleText": "我的",
   "enablePullDownRefresh": true,
   "backgroundTextStyle": "dark"
