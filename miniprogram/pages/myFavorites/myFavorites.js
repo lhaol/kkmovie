@@ -1,5 +1,6 @@
 // miniprogram/pages/myFavorites/myFavorities.js
 const db = require('../../utils/db')
+const util = require('../../utils/util')
 
 Page({
 
@@ -52,6 +53,15 @@ Page({
   onLoad: function(options) {
     this.getMyCollection()
   },
+
+  onShow: function() {
+    util.getUserInfo().then(userInfo => {
+      this.setData({
+        userInfo
+      })
+    })
+  },
+
   getMyCollection(callback) { // 查收藏
     wx.showLoading({
       title: 'loading',

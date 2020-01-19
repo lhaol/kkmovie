@@ -62,9 +62,12 @@
 .comment-bottom{
   margin-top: 20rpx;
   display: flex;
+  text-overflow: ellipsis;
+  white-space: break-word;
 }
 .content-txt{
   margin-left: 20rpx;
+  word-wrap: break-word;
 }
 .head-short{
   width: 85rpx;
