@@ -11,7 +11,7 @@
       <view class='comment-bottom'>
         <view wx:if="{{comment.content!=''}}">
           <view class='iconfont icon-baojiaquotation2'></view>
-          <view class='content-txt'>{{comment.content}}</view>
+          <view class='content-txt' style="word-wrap:break-word">{{comment.content}}</view>
         </view>
         <view class='record-Radio' bindtap='startPlay' wx:else>
           <view class='radio-content'>
