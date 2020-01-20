@@ -9,6 +9,7 @@ Page({
    */
   data: {
     movieList:[],
+    commentList: [],
   },
 
   // 跳转热门电影
@@ -24,13 +25,13 @@ Page({
     })
   },
 
-  // // 跳转影评详情
-  // skipToComment() {
-  //   let commentId = this.data.recommendMovie._id
-  //   wx.navigateTo({
-  //     url: '../commentDetail/commentDetail?commentId=' + commentId,
-  //   })
-  // },
+  // 跳转影评详情
+  skipToComment() {
+    let commentId = this.data.commentList[0]._id
+    wx.navigateTo({
+      url: '../commentDetail/commentDetail?commentId=' + commentId,
+    })
+  },
 
 
   //跳转推荐电影详情
@@ -47,6 +48,7 @@ Page({
    */
   onLoad: function(options) {
     this.getMovieList()
+    this.getComment(this.data.commentList[0]._id)
   },
 
   getMovieList() {
@@ -69,5 +71,25 @@ Page({
       console.error(err)
       wx.hideLoading()
     })
-  }
+  },
+
+  getComment(movieId) {
+    wx.cloud.callFunction({
+      name: 'movieComments',
+      data: {
+        movieId: movieId
+      }
+    }).then(result => {
+      const commentList = result.result.data[0]
+      if (commentList.length) {
+        this.setData({
+          commentList
+        })
+      } else {
+        setTimeout(() => {
+          wx.navigateBack()
+        }, 5000)
+      }
+    })
+  },
 })
