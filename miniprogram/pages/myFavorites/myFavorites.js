@@ -79,7 +79,7 @@ Page({
     wx.cloud.callFunction({
       name: 'myFavorites',
       data: {
-        name: this.data.userInfo.nickName
+        favUserId: this.data.userInfo.nickName
       }
     }).then(res => {
       this.setData({

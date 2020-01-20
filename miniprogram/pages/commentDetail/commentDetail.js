@@ -2,6 +2,8 @@
 const db = wx.cloud.database();
 let timer = null;
 const innerAudioContext = wx.createInnerAudioContext();
+const util = require('../../utils/util');
+
 Page({
 
   /**
@@ -13,7 +15,8 @@ Page({
     actionSheetItems: ['文字', '音频'],
     addToFavorite: false,
     startPlay:false,
-    voice:''
+    voice:'',
+    userInfo: null
   },
   startPlay() {
     let that = this
@@ -79,7 +82,8 @@ Page({
           headshort: this.data.comment.headshort,
           title: this.data.comment.title,
           image: this.data.comment.image,
-          name: this.data.comment.name
+          name: this.data.comment.name,
+          favUserId: this.data.userInfo.nickName,
         },
         success: (res) => {
           // console.log(res)
@@ -91,6 +95,17 @@ Page({
       url: '../myFavorites/myFavorities',
     })
   },
+  
+  onShow: function () {
+    util.getUserInfo().then(userInfo => {
+      this.setData({
+        userInfo
+      })
+    }).catch(err => {
+      console.log('Not Authenticated yet');
+    })
+  },
+  
   /**
    * 生命周期函数--监听页面加载
    */
@@ -117,4 +132,5 @@ Page({
       wx.hideLoading()
     })
   }
+
 })
