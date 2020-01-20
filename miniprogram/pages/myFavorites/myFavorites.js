@@ -46,7 +46,7 @@ Page({
     this.setData({
       userInfo: event.detail.userInfo
     })
-    console.log(userInfo)
+    console.log(this.userInfo)
   },
 
   /**
