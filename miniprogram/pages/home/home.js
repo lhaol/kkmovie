@@ -10,8 +10,6 @@ Page({
   data: {
     movieList:[],
     commentList: [],
-    name: '',
-    headshort: '',
   },
 
   // 跳转热门电影
@@ -28,18 +26,19 @@ Page({
   },
 
   // 跳转影评详情
-  // skipToComment() {
-  //   let commentId = this.data.commentList[0]._id
-  //   wx.navigateTo({
-  //     url: '../commentDetail/commentDetail?commentId=' + commentId,
-  //   })
-  // },
-
+  skipToComment(event) {
+    // let commentId = this.data.commentList[0]._id
+    let commentId = event.target.dataset.id
+    wx.navigateTo({
+      url: '../commentDetail/commentDetail?commentId=' + commentId,
+    })
+  },
 
   //跳转推荐电影详情
-  skipToDetail() {
-    let movieId = this.data.movieList[0]._id
-    // console.log(movieId)
+  skipToDetail(event) {
+    // let movieId = this.data.movieList[0]._id
+    let movieId = event.target.dataset.id
+    console.log(movieId)
     wx.navigateTo({
       url: '../movieDetail/movieDetail?movieId=' + movieId,
     })
@@ -75,20 +74,6 @@ Page({
     })
   },
 
-  // getComment(id){
-  //   wx.cloud.callFunction({
-  //     name:'movieComments',
-  //     data:{
-  //       movieId:id
-  //     }
-  //   }).then(res=>{
-  //     console.log(res)
-  //     this.setData({
-  //      commentList:res.result.data[0]
-  //    })
-  //   })
-  // }
-
   getComment(movieId) {
     // console.log(movieId.movieId)
     wx.cloud.callFunction({
@@ -99,13 +84,10 @@ Page({
     }).then(result => { 
       // console.log(result)
       const commentList = result.result.data[0]
-      console.log(commentList)
-      console.log(commentList.headshort)
+      // console.log(commentList)
       if (commentList.length) {
         this.setData({
           commentList,
-          name: commentList.name,
-          headshort: commentList.headshort,
         })
       }
     })
