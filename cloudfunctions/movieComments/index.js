@@ -11,7 +11,7 @@ const db = cloud.database()
 // 云函数入口函数
 exports.main = async (event, context) => {
   // return db.collection('comments').get()
-  const movieId = event.movieId.movieId
+  const movieId = event.movieId
   const commentRes = await db.collection('comments').where({
     movieId:movieId
   }).get()

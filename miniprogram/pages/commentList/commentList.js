@@ -65,7 +65,7 @@ Page({
     wx.cloud.callFunction({
       name: 'movieComments',
       data:{
-        movieId: movieId
+        movieId: movieId.movieId
       }
     }).then(result => {
       wx.hideLoading()  
