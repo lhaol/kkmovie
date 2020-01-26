@@ -18,6 +18,7 @@ Page({
     voice:'',
     userInfo: null,
     name:'',
+    title: '',
   },
   startPlay() {
     let that = this
@@ -107,7 +108,8 @@ Page({
       console.log(res)
       this.setData({
        comment:res.result.data[0],
-       name:res.result.data[0].name
+       name:res.result.data[0].name,
+       title: res.result.data[0].title
      })
      wx.hideLoading()
     }).catch(error=>{
@@ -141,8 +143,11 @@ Page({
           },
           fail: console.error
         })
+        wx.showToast({
+          title: '收藏成功',
+        })
         wx.navigateTo({
-          url: '../myFavorites/myFavorities',
+          url: '/pages/myFavorites/myFavorities',
         })
       }
     }
@@ -150,7 +155,22 @@ Page({
   
     //取消收藏
     removeFav(){
-  
+      this.setData({
+        isFavorite: false
+      })
+      db.collection('favorites').remove({
+        data: {
+          favUserId: this.data.userInfo.nickName,
+          title: this.data.title
+        },
+        success: (res) => {
+          // console.log(res)
+        },
+        fail: console.error
+      })
+      wx.showToast({
+        title: '收藏已删除',
+      })
     },
 
 })
