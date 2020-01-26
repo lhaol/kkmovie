@@ -9,7 +9,7 @@
     <view class='tab_release {{selectNum==1? "tab_selected":""}}' data-num="1">已发布</view>
   </view>
   <view wx:for="{{commentList}}" wx:key="{{item._id}}">
-    <navigator url='../commentDetail/commentDetail?commentId={{item._id}}' class='list-item'>
+    <navigator url='/pages/commentDetail/commentDetail?commentId={{item._id}}' class='list-item'>
       <view class='my-item'>
         <view class='item-left'>
           <image class='item-img' src="{{item.image}}" mode="widthFix"></image>

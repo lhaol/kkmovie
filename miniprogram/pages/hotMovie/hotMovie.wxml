@@ -1,7 +1,7 @@
 <!--miniprogram/pages/hotMovie/hotMovie.wxml-->
 <view class='hotMv-container'>
   <view wx:for="{{movieList}}" wx:key="{{item._id}}">
-    <navigator url='../movieDetail/movieDetail?movieId={{item._id}}'>
+    <navigator url='/pages/movieDetail/movieDetail?movieId={{item._id}}'>
       <view class='hotMv-item'>
         <view class='item-left'>
           <image class='item-img' src="{{item.image}}" mode="widthFix"></image>
