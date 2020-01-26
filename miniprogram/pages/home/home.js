@@ -10,6 +10,7 @@ Page({
   data: {
     movieList:[],
     commentList: [],
+    comment:[],
   },
 
   // 跳转热门电影
@@ -50,7 +51,16 @@ Page({
   onLoad: function(options) {
     this.getMovieList()
     this.getCommentList()
+    console.log(this.data.movieList)
   },
+
+  // onShow: function(){
+
+  // },
+
+  // swiperChange(e){
+  //   console.log(e)
+  // },
 
   getMovieList() {
     wx.showLoading({
@@ -86,22 +96,20 @@ Page({
       console.error(err)
     })
   },
-  // getComment(movieId) {
-  //   // console.log(movieId.movieId)
+
+  // getComment(id){
   //   wx.cloud.callFunction({
-  //     name: 'movieComments',
+  //     name:'getCommentById',
   //     data:{
-  //       movieId: movieId
+  //       id:id
   //     }
-  //   }).then(result => { 
-  //     // console.log(result)
-  //     const commentList = [result.result.data[0]]
-  //     // console.log(commentList)
-  //     if (commentList.length) {
-  //       this.setData({
-  //         commentList,
-  //       })
-  //     }
+  //   }).then(res=>{
+  //     this.setData({
+  //      comment:res.result.data[0],
+  //    })
+  //   }).catch(error=>{
+  //     console.log(error)
+  //     wx.hideLoading()
   //   })
   // },
 })

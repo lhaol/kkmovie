@@ -1,18 +1,18 @@
 <!--miniprogram/pages/home/home.wxml-->
 <view class='home-container'>
-    <swiper class='movie-detail'>
+    <swiper class='movie-detail' bindchange='swiperChange'>
       <block wx:for="{{movieList}}">
         <swiper-item class="movie-item">
           <view class='movie-bg'>
             <image class='movie-img' src="{{item.image}}" mode="widthFix" data-id="{{item._id}}"  bindtap='skipToDetail'></image>
             <view class='movie-title'>{{item.title}}</view>
           </view>
-          <view wx:if="{{commentList.movieId == moiveList._id}}">
-            <view class='movie-comment' data-id="{{commentList._id}}"  bindtap='skipToComment'>
-              <image class="head-shot" src='{{commentList.headshort}}' mode="aspectFill"></image>
-              <view class='comment-tip'>{{commentList.name}}给你推荐了一部电影</view>
+          <!-- <view wx:for="{{comment}}"> -->
+            <view class='movie-comment' data-id="{{comment._id}}"  bindtap='skipToComment'>
+              <image class="head-shot" src='{{comment.headshort}}' mode="aspectFill"></image>
+              <view class='comment-tip'>{{comment.name}}给你推荐了一部电影</view>
             </view>
-          </view>
+          <!-- </view> -->
         </swiper-item>
       </block>
     </swiper>
