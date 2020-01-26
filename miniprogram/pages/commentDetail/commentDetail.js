@@ -13,10 +13,11 @@ Page({
     comment: {},
     actionSheetHidden: true,
     actionSheetItems: ['文字', '音频'],
-    addToFavorite: false,
+    isFavorite: false,
     startPlay:false,
     voice:'',
-    userInfo: null
+    userInfo: null,
+    name:'',
   },
   startPlay() {
     let that = this
@@ -70,31 +71,6 @@ Page({
       url: '../editComment/editComment?selectType=' + selectType
     })
   },
-  // 收藏影评
-  favThisComment(){
-    if(!this.data.addToFavorite){ // 未收藏
-      this.setData({
-        addToFavorite: true
-      })
-      db.collection('favorites').add({
-        data: {
-          content: this.data.comment.content,
-          headshort: this.data.comment.headshort,
-          title: this.data.comment.title,
-          image: this.data.comment.image,
-          name: this.data.comment.name,
-          favUserId: this.data.userInfo.nickName,
-        },
-        success: (res) => {
-          // console.log(res)
-        },
-        fail: console.error
-      })
-    }
-    wx.navigateTo({
-      url: '../myFavorites/myFavorities',
-    })
-  },
   
   onShow: function () {
     util.getUserInfo().then(userInfo => {
@@ -111,26 +87,70 @@ Page({
    */
   onLoad: function (options) {
     this.getComment(options.commentId)
+    if(this.data.name == this.data.userInfo){
+      this.setData({
+        isFavorite: ture
+      })
+    }
+  },
+
+  getComment(id){
     wx.showLoading({
       title: 'Loading comment detail...',
     })
-  },
-  getComment(id){
     wx.cloud.callFunction({
       name:'getCommentById',
       data:{
         id:id
       }
     }).then(res=>{
-      // console.log(res)
+      console.log(res)
       this.setData({
-       comment:res.result.data[0]
+       comment:res.result.data[0],
+       name:res.result.data[0].name
      })
      wx.hideLoading()
     }).catch(error=>{
       console.log(error)
       wx.hideLoading()
     })
-  }
+  },
+
+  // 收藏影评
+  favThisComment(){
+    if(!this.data.isFavorite){ // 未收藏
+      if(!this.data.userInfo){ //未登录
+        wx.showToast({
+          title: '请登录',
+        })
+      }else{ //已登录
+        this.setData({
+          isFavorite: true
+        })
+        db.collection('favorites').add({
+          data: {
+            content: this.data.comment.content,
+            headshort: this.data.comment.headshort,
+            title: this.data.comment.title,
+            image: this.data.comment.image,
+            name: this.data.comment.name,
+            favUserId: this.data.userInfo.nickName,
+          },
+          success: (res) => {
+            // console.log(res)
+          },
+          fail: console.error
+        })
+        wx.navigateTo({
+          url: '../myFavorites/myFavorities',
+        })
+      }
+    }
+  },
+  
+    //取消收藏
+    removeFav(){
+  
+    },
 
 })
