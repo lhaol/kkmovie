@@ -1,6 +1,7 @@
 // miniprogram/pages/movieDetail/movieDetail.js
 
 const db = require('../../utils/db')
+const util = require('../../utils/util')
 
 Page({
 
@@ -10,13 +11,18 @@ Page({
   data: {
     movie:{},
     actionSheetHidden:true,
-    actionSheetItems:['文字','音频']
+    actionSheetItems:['文字','音频'],
+    isFavorite: false,
+    userInfo: null,
+    commentList:[],
   }, 
   // 底部弹出框
   actionSheetTap(){
-    this.setData({
-      actionSheetHidden:!this.data.actionSheetHidden
-    })
+    if(!this.data.isFavorite){ //未收藏
+      this.setData({
+        actionSheetHidden:!this.data.actionSheetHidden
+      })
+    }
   },
   actionSheetChange(){
     this.setData({
@@ -43,11 +49,34 @@ Page({
       url: '../commentList/commentList?movieId=' + movieId,
     })
   },
+
+  //跳转到我的影评
+  myComments(){
+    let movieId = this.data.movie._id
+    let name = this.data.userInfo.nickName
+
+    wx.navigateTo({
+      url: '../commentList/commentList?movieId=' + movieId + "&name=" + name,
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.getMovieDetail(options)
+  },
+
+  onShow: function() {
+    util.getUserInfo().then(userInfo => {
+      this.setData({
+        userInfo,
+        isFavorite: true,
+      })
+
+    }).catch(err => {
+      console.log('Not Authenticated yet');
+    })
   },
   
   // 根据ID获取电影详情
@@ -59,6 +88,7 @@ Page({
     db.getMovieById(id).then(result => {
       wx.hideLoading()
       const data = result.result
+      // console.log(data)
       if (data){
         this.setData({
           movie: data

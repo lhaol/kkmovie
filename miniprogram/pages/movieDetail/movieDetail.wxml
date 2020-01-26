@@ -6,7 +6,10 @@
     <view class='movie-des'>{{movie.description}}</view>
     <view class='skip-buttons'>
       <view class='btn iconfont icon-chakan' bindtap='skipToComment'>查看影评</view>
-      <view class='btn iconfont icon-iconset0130' bindtap='actionSheetTap'>添加影评</view>
+      <view class='btn iconfont icon-iconset0130'>
+        <text wx:if="{{!isFavorite}}" bindtap='actionSheetTap'>添加影评</text>
+        <text wx:else bindtap='myComments'>我的影评</text>
+      </view>
     </view>
   </view>
   <action-sheet hidden="{{actionSheetHidden}}" bindchange="actionSheetChange">

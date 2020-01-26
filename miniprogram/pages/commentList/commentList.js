@@ -52,26 +52,44 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // console.log(options)
-    this.getCommentList(options)
-    
+    console.log(options)
+    let name =options.name
+    let movieId = options.movieId
+    if(name){
+      this.getCommentListByName(name, movieId)
+    }else{
+      this.getCommentListByMovie(movieId)
+    }
   },
 
-  getCommentList(movieId) {
+  getCommentListByName(name, movieId){
+    wx.cloud.callFunction({
+      name: 'myCommentsByName',
+      data: {
+        name,
+        movieId
+      }
+    }).then(res => {
+      this.setData({
+        commentList: res.result.data
+      })
+      console.log(res)
+    })
+  },
+
+  getCommentListByMovie(movieId) {
     wx.showLoading({
       title: 'Loading...',
     })
-    // console.log(movieId.movieId)
     wx.cloud.callFunction({
       name: 'movieComments',
       data:{
-        movieId: movieId.movieId
+        movieId: movieId
       }
-    }).then(result => {
+    }).then(res => {
       wx.hideLoading()  
-      // console.log(result)
-      const commentList = result.result.data
-      console.log(commentList)
+      const commentList = res.result.data
+      // console.log(commentList)
       if (commentList.length) {
         this.setData({
           commentList
@@ -89,7 +107,6 @@ Page({
         wx.navigateBack()
       }, 5000)
     })
-
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
