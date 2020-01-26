@@ -7,10 +7,10 @@
             <image class='movie-img' src="{{item.image}}" mode="widthFix" data-id="{{item._id}}"  bindtap='skipToDetail'></image>
             <view class='movie-title'>{{item.title}}</view>
           </view>
-          <view wx:for="{{commentList}}">
-            <view class='movie-comment' data-id="{{item._id}}"  bindtap='skipToComment'>
-              <image class="head-shot" src='{{item.headshort}}' mode="aspectFill"></image>
-              <view class='comment-tip'>{{item.name}}给你推荐了一部电影</view>
+          <view wx:if="{{commentList.movieId == moiveList._id}}">
+            <view class='movie-comment' data-id="{{commentList._id}}"  bindtap='skipToComment'>
+              <image class="head-shot" src='{{commentList.headshort}}' mode="aspectFill"></image>
+              <view class='comment-tip'>{{commentList.name}}给你推荐了一部电影</view>
             </view>
           </view>
         </swiper-item>

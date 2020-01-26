@@ -28,7 +28,7 @@ Page({
   // 跳转影评详情
   skipToComment(event) {
     // let commentId = this.data.commentList[0]._id
-    let commentId = event.target.dataset.id
+    let commentId = event.currentTarget.dataset.id
     wx.navigateTo({
       url: '../commentDetail/commentDetail?commentId=' + commentId,
     })
@@ -37,7 +37,7 @@ Page({
   //跳转推荐电影详情
   skipToDetail(event) {
     // let movieId = this.data.movieList[0]._id
-    let movieId = event.target.dataset.id
+    let movieId = event.currentTarget.dataset.id
     console.log(movieId)
     wx.navigateTo({
       url: '../movieDetail/movieDetail?movieId=' + movieId,
@@ -49,24 +49,23 @@ Page({
    */
   onLoad: function(options) {
     this.getMovieList()
+    this.getCommentList()
   },
 
   getMovieList() {
     wx.showLoading({
       title: 'Loading.....',
     })
-
     db.getMovieList().then(result => {
       wx.hideLoading()
-
       const movieList = result.data 
-      const movieId =movieList[0]._id
-
+      // const movieId = movieList[0]._id
       if (movieList.length) {
-        this.getComment(movieId)
+        // this.getComment(movieId)
         this.setData({
           movieList,
         })
+        console.log(movieList)
       }
     }).catch(err => {
       console.error(err)
@@ -74,22 +73,35 @@ Page({
     })
   },
 
-  getComment(movieId) {
-    // console.log(movieId.movieId)
-    wx.cloud.callFunction({
-      name: 'movieComments',
-      data:{
-        movieId: movieId
-      }
-    }).then(result => { 
-      // console.log(result)
-      const commentList = result.result.data[0]
-      // console.log(commentList)
+  getCommentList() {
+    db.getCommentList().then(result => {
+      const commentList = result.data
       if (commentList.length) {
         this.setData({
           commentList,
         })
+        console.log(commentList)
       }
+    }).catch(err => {
+      console.error(err)
     })
   },
+  // getComment(movieId) {
+  //   // console.log(movieId.movieId)
+  //   wx.cloud.callFunction({
+  //     name: 'movieComments',
+  //     data:{
+  //       movieId: movieId
+  //     }
+  //   }).then(result => { 
+  //     // console.log(result)
+  //     const commentList = [result.result.data[0]]
+  //     // console.log(commentList)
+  //     if (commentList.length) {
+  //       this.setData({
+  //         commentList,
+  //       })
+  //     }
+  //   })
+  // },
 })

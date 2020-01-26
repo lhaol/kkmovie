@@ -7,6 +7,10 @@ module.exports = {
     return db.collection('movies').get()
   },
 
+  getCommentList() {
+    return db.collection('comments').get()
+  },
+
   getMovieById(id){
     return wx.cloud.callFunction({
       name: 'getMovieById',
@@ -43,10 +47,4 @@ module.exports = {
       })
   },
 
-  // getCommentList(movieId){
-  //   const commentRes = db.collection('comments').where({ id: movieId }).get()
-  //   console.log(commentRes)
-  //   const comment = commentRes.data
-  //   return comment
-  // },
 }
