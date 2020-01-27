@@ -9,8 +9,9 @@ Page({
    */
   data: {
     movieList:[],
-    commentList: [],
-    comment:[],
+    // commentList: [],
+    comment: [],
+    swiperIndex:0,
   },
 
   // 跳转热门电影
@@ -45,22 +46,28 @@ Page({
     })
   },
   
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let index = this.data.swiperIndex
     this.getMovieList()
-    this.getCommentList()
-    console.log(this.data.movieList)
+    let movieId = this.data.movieList[index]._id
+    // this.getCommentList()
+    this.getComment(movieId)
   },
 
-  // onShow: function(){
-
-  // },
-
-  // swiperChange(e){
-  //   console.log(e)
-  // },
+  swiperChange(e){
+    const swiperIndex = e.detail.current // 当前的swiper的页数
+    this.setData({
+      swiperIndex: swiperIndex
+    })
+    // console.log(swiperIndex)
+    let movieId = this.data.movieList[swiperIndex]._id
+    console.log(movieId)
+    this.getComment(movieId)
+  },
 
   getMovieList() {
     wx.showLoading({
@@ -69,13 +76,11 @@ Page({
     db.getMovieList().then(result => {
       wx.hideLoading()
       const movieList = result.data 
-      // const movieId = movieList[0]._id
       if (movieList.length) {
-        // this.getComment(movieId)
         this.setData({
-          movieList,
+          movieList: movieList
         })
-        console.log(movieList)
+        // console.log(movieList)
       }
     }).catch(err => {
       console.error(err)
@@ -83,33 +88,31 @@ Page({
     })
   },
 
-  getCommentList() {
-    db.getCommentList().then(result => {
-      const commentList = result.data
-      if (commentList.length) {
-        this.setData({
-          commentList,
-        })
-        console.log(commentList)
-      }
-    }).catch(err => {
-      console.error(err)
+  // getCommentList() {
+  //   db.getCommentList().then(result => {
+  //     const commentList = result.data
+  //     if (commentList.length) {
+  //       this.setData({
+  //         commentList,
+  //       })
+  //       console.log(commentList)  
+  //     }
+  //   }).catch(err => {
+  //     console.error(err)
+  //   })
+  // },
+
+  getComment(id){
+    console.log(id)
+    db.getComment(id).then(res =>{
+      this.setData({
+       comment:res.data[0],
+     })
+     console.log(comment)
+    }).catch(error=>{
+      console.log(error)
+      wx.hideLoading()
     })
   },
 
-  // getComment(id){
-  //   wx.cloud.callFunction({
-  //     name:'getCommentById',
-  //     data:{
-  //       id:id
-  //     }
-  //   }).then(res=>{
-  //     this.setData({
-  //      comment:res.result.data[0],
-  //    })
-  //   }).catch(error=>{
-  //     console.log(error)
-  //     wx.hideLoading()
-  //   })
-  // },
 })

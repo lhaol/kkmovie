@@ -11,6 +11,12 @@ module.exports = {
     return db.collection('comments').get()
   },
 
+  getComment(id) {
+    return db.collection('comments').where({
+      movieId:id
+    }).get()
+  },
+
   getMovieById(id){
     return wx.cloud.callFunction({
       name: 'getMovieById',
