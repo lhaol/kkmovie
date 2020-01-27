@@ -51,11 +51,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let index = this.data.swiperIndex
     this.getMovieList()
-    let movieId = this.data.movieList[index]._id
-    // this.getCommentList()
-    this.getComment(movieId)
+    // let index = this.data.swiperIndex
+    // let movieId = this.data.movieList[index]._id
+    this.getComment('7b35fa44-68b6-412e-8b79-1e00946c0a96')
   },
 
   swiperChange(e){
@@ -65,7 +64,7 @@ Page({
     })
     // console.log(swiperIndex)
     let movieId = this.data.movieList[swiperIndex]._id
-    console.log(movieId)
+    // console.log(movieId)
     this.getComment(movieId)
   },
 
@@ -103,12 +102,11 @@ Page({
   // },
 
   getComment(id){
-    console.log(id)
     db.getComment(id).then(res =>{
       this.setData({
        comment:res.data[0],
      })
-     console.log(comment)
+    //  console.log(comment)
     }).catch(error=>{
       console.log(error)
       wx.hideLoading()
