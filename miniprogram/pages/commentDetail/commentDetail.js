@@ -136,6 +136,7 @@ Page({
             title: this.data.comment.title,
             image: this.data.comment.image,
             name: this.data.comment.name,
+            _id: this.data.comment._id,
             favUserId: this.data.userInfo.nickName,
           },
           success: (res) => {
