@@ -12,7 +12,7 @@
   padding-bottom: 25rpx;
 }
 .tab_selected{
-  color:#7F99AF;
+  color:rgb(10, 233, 148);
 }
 .tab_collection{
    margin-right: 25rpx;
