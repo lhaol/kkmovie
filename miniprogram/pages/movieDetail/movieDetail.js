@@ -12,13 +12,27 @@ Page({
     movie:{},
     actionSheetHidden:true,
     actionSheetItems:['文字','音频'],
-    isFavorite: false,
+    myCommentsFlag: false,
     userInfo: null,
     commentList:[],
   }, 
+  
+  // 设置myCommentsFlag
+  setMyCommentsFlag(){
+    if (this.data.userInfo && this.data.commentList.length){
+      this.setData({
+        myCommentsFlag: true
+      })
+    } else {
+      this.setData({
+        myCommentsFlag: false
+      })
+    }
+  },
+  
   // 底部弹出框
   actionSheetTap(){
-    if(!this.data.isFavorite){ //未收藏
+    if(!this.data.myCommentsFlag){ //未登录 或 已登录但无我的影评
       this.setData({
         actionSheetHidden:!this.data.actionSheetHidden
       })
@@ -71,10 +85,19 @@ Page({
     util.getUserInfo().then(userInfo => {
       this.setData({
         userInfo,
-        isFavorite: true,
       })
-
+      if (userInfo){ //如果用户已登录， 查看此电影是否有该用户的评论， 如果有则设置myCommentsFlag值为真 （显示我的影评），如果没有则值为假（显示添加影评）。
+        let name = userInfo.nickName
+        let movieId = this.data.movie._id
+        console.log(movieId)
+        console.log(name)
+        this.getCommentListByName(name, movieId)
+        console.log(this.data.commentList)
+        this.setMyCommentsFlag()
+        console.log(this.data.myCommentsFlag)
+      }
     }).catch(err => {
+      console.log(err)
       console.log('Not Authenticated yet');
     })
   },
@@ -107,5 +130,20 @@ Page({
       }, 5000)
     })
 
+  },
+
+  //根据登录的用户名和movieId 获取CommentList
+  getCommentListByName(name, movieId){
+    wx.cloud.callFunction({
+      name: 'myCommentsByName',
+      data: {
+        name,
+        movieId
+      }
+    }).then(res => {
+      this.setData({
+        commentList: res.result.data
+      })
+    })
   }
 })

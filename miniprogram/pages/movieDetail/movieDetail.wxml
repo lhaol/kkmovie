@@ -7,7 +7,8 @@
     <view class='skip-buttons'>
       <view class='btn iconfont icon-chakan' bindtap='skipToComment'>查看影评</view>
       <view class='btn iconfont icon-iconset0130'>
-        <text wx:if="{{!isFavorite}}" bindtap='actionSheetTap'>添加影评</text>
+        <!-- //未登录 或 已登录但无我的影评 -->
+        <text wx:if="{{!myCommentsFlag}}" bindtap='actionSheetTap'>添加影评</text> 
         <text wx:else bindtap='myComments'>我的影评</text>
       </view>
     </view>
