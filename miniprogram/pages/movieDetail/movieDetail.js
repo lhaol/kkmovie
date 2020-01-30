@@ -18,8 +18,8 @@ Page({
   }, 
   
   // 设置myCommentsFlag
-  setMyCommentsFlag(){
-    if (this.data.userInfo && this.data.commentList.length){
+  setMyCommentsFlag(userInfo, commentList){
+    if (userInfo && commentList.length){
       this.setData({
         myCommentsFlag: true
       })
@@ -79,9 +79,7 @@ Page({
    */
   onLoad: function (options) {
     this.getMovieDetail(options)
-  },
 
-  onShow: function() {
     util.getUserInfo().then(userInfo => {
       this.setData({
         userInfo,
@@ -89,17 +87,22 @@ Page({
       if (userInfo){ //如果用户已登录， 查看此电影是否有该用户的评论， 如果有则设置myCommentsFlag值为真 （显示我的影评），如果没有则值为假（显示添加影评）。
         let name = userInfo.nickName
         let movieId = this.data.movie._id
-        console.log(movieId)
-        console.log(name)
+        // console.log(movieId)
+        // console.log(name)
         this.getCommentListByName(name, movieId)
-        console.log(this.data.commentList)
-        this.setMyCommentsFlag()
-        console.log(this.data.myCommentsFlag)
+        let commentList = this.data.commentList
+        // console.log(commentList)
+        this.setMyCommentsFlag(userInfo, commentList)
+        // console.log(this.data.myCommentsFlag)
       }
     }).catch(err => {
       console.log(err)
       console.log('Not Authenticated yet');
     })
+  },
+
+  onShow: function() {
+
   },
   
   // 根据ID获取电影详情
@@ -144,6 +147,7 @@ Page({
       this.setData({
         commentList: res.result.data
       })
+      // console.log(this.data.commentList)
     })
   }
 })
