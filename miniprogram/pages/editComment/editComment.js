@@ -1,7 +1,10 @@
 // miniprogram/pages/editComment/editComment.js
+const util = require('../../utils/util')
+
 const recorderManager = wx.getRecorderManager();
 const innerAudioContext = wx.createInnerAudioContext();
 let timer = null; // 计时器
+
 Page({
   /**
    * 页面的初始数据
@@ -16,7 +19,8 @@ Page({
     recordTimer: '00:00',
     radioTimer: '',
     startPlay: false,
-    hasRadio: false
+    hasRadio: false,
+    userInfo:null,
   },
   // 跳转预览页
   skipToPreview() {
@@ -121,6 +125,12 @@ Page({
     // console.log(event.detail.value)
   },
 
+  onTapLogin(event) {
+    this.setData({
+      userInfo: event.detail.userInfo
+    })
+    console.log(this.userInfo)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -140,6 +150,17 @@ Page({
       title: movieDetail.title
     })
   },
+
+  onShow: function() {
+    util.getUserInfo().then(userInfo => {
+      this.setData({
+        userInfo
+      })
+    }).catch(err => {
+      console.log('Not Authenticated yet');
+    })
+  },
+
   onblur(e) {
     this.setData({
       inputValue: e.detail.value

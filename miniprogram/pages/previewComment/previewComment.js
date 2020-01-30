@@ -16,7 +16,7 @@ Page({
     startPlay: false,
     radioTimer: '',
     isText: true,
-    movieId: ''
+    movieId: '',
   },
   startPlay() {
     let that = this
@@ -97,7 +97,7 @@ Page({
           name: res.userInfo.nickName,
           image: movieDetail.image,
           title: movieDetail.title,
-          movieId: movieDetail.movieId
+          movieId: movieDetail.movieId,
         })
         wx.setStorage({
           key: 'currentUser',
