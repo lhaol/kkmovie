@@ -90,7 +90,7 @@ Page({
         // console.log(movieId)
         // console.log(name)
         this.getCommentListByName(name, movieId)
-        let commentList = this.data.commentList
+        let commentList = this.data.commentList //为什么此处获取的commentList总为空？
         // console.log(commentList)
         this.setMyCommentsFlag(userInfo, commentList)
         // console.log(this.data.myCommentsFlag)
