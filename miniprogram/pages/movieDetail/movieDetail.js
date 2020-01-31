@@ -89,11 +89,12 @@ Page({
         let movieId = this.data.movie._id
         // console.log(movieId)
         // console.log(name)
-        this.getCommentListByName(name, movieId)
-        let commentList = this.data.commentList //为什么此处获取的commentList总为空？
-        // console.log(commentList)
-        this.setMyCommentsFlag(userInfo, commentList)
-        // console.log(this.data.myCommentsFlag)
+        this.getCommentListByName(name, movieId, () =>{
+          let commentList = this.data.commentList 
+          // console.log(commentList)
+          this.setMyCommentsFlag(userInfo, commentList)
+          // console.log(this.data.myCommentsFlag)
+        }) 
       }
     }).catch(err => {
       console.log(err)
@@ -136,7 +137,7 @@ Page({
   },
 
   //根据登录的用户名和movieId 获取CommentList
-  getCommentListByName(name, movieId){
+  getCommentListByName(name, movieId, callback){
     wx.cloud.callFunction({
       name: 'myCommentsByName',
       data: {
@@ -147,7 +148,7 @@ Page({
       this.setData({
         commentList: res.result.data
       })
-      // console.log(this.data.commentList)
+      callback && callback();
     })
   }
 })
